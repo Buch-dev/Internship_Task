@@ -12,10 +12,26 @@ const ImageSlider = () => {
     { src: "/images/naruto.jpg", alt: "naruto" },
     { src: "/images/stack.jpg", alt: "stack" },
   ];
+
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Keyboard navigation handler
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowLeft") {
+      setActiveIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    } else if (e.key === "ArrowRight") {
+      setActiveIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center gap-4 p-4 overflow-x-hidden">
+    <div
+      className="flex flex-col items-center justify-center gap-4 p-4 overflow-x-hidden"
+      role="region"
+      aria-label="Image slider"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+    >
       <div className="relative w-[500px] h-[400px] overflow-visible rounded-2xl">
         <div
           className="flex transition-transform duration-500 h-full"
